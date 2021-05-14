@@ -14,7 +14,7 @@ public class tpProgramacion {
 		 */
 
 		/*
-		 * NOTAS
+		 * NOTAS   idea original
 		 * 
 		 * puedo setear un ARRAY de 10 como mapa determinado en cada espacio tiro un
 		 * DadoGeneral, si el numero sale par sucede un evento si el numero sale impar
@@ -71,6 +71,21 @@ public class tpProgramacion {
 		 * 
 		 * 
 		 */
+		/*			IDEA BASICA
+		 * 
+		 * hacer un array de 6 posiciones en donde 5 van a enbcontrarse enemigo o no 
+		 * se va a ingresar en un combate en donde se puede retirar o pelear 
+		 * en caso de pelear va a ver 3 rondas en donde se pasa al siguiente caso si se gana con el dado 2 veces
+		 * en caso de perder  GAME OVER en la casilla 6 va a estar el boss final que para ganar se va a tirar el dado 5 veces
+		 * 
+		 * se va a elegir entre 2 personajes en donde dependendiendo la seleccion se va a modificar los valores del dado
+		 *  (numero minimo, mayor y diferencia entre estos  ej. dado de 10 caras 1-10 es el base pj 1 va a ser +2 >>> 3-13  )
+		 *
+		 * 
+		 * 
+		 */
+		
+		
 		
 		// ESTO ES UN COMENTARIO RANDOM PARA JUGAR CON EL GITHUB DESKTOP
 		
