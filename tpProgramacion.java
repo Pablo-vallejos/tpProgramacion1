@@ -71,6 +71,9 @@ public class tpProgramacion {
 		 * 
 		 * 
 		 */
+		
+		// ESTO ES UN COMENTARIO RANDOM PARA JUGAR CON EL GITHUB DESKTOP
+		
 		// variables globales
 		int juego = 0; // variable que termina el juego
 		int combate = 0; // variable que setea el combate
