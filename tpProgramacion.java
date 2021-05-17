@@ -2,6 +2,8 @@ package tpProgramacion;
 
 import javax.swing.JOptionPane;
 
+import java.util.Random;
+
 public class tpProgramacion {
 
 	public static void main(String[] args) {
@@ -90,27 +92,32 @@ public class tpProgramacion {
 		// ESTO ES UN COMENTARIO RANDOM PARA JUGAR CON EL GITHUB DESKTOP
 		
 		// variables globales
+		Random rnd = new Random();		
 		int juego = 0; // variable que termina el juego
-		int combate = 0; // variable que setea el combate
-		int rondaCombate = 1; // variable que setea las rondas
-		double dadoGeneral; // tiene 2 entradas par o impar (1 o 2)
-		double dadoHeroe;
-		double dadoEnemigo;
-		double dadoRetirada;
-		int contadorCombate = 0;
-		int combateGanado = 0, combatePerdido = 0;
-		double mundoArray[] = new double[5]; // mapa del juego
+		int mundoArray[] = new int[6]; // mapa del juego
 		int variableMundo; // variable del for
 		int seleccionHeroe = 0;
+		int heroeStats[] = new int[2];    // [0] >>> numero maximo de dado  [1] >>>> numero minimo de dado  
+		//combates
+		int combate = 0; // variable que setea el combate
+		int rondaCombate = 1; // variable que setea las rondas	
+		int contadorCombate = 0;
+		int combateGanado = 0, combatePerdido = 0;
+		//dados
+		int dadoGeneral; // tiene 2 entradas par o impar (1 o 2)
+		int dadoHeroe;
+		int dadoEnemigo;
+		int dadoRetirada;
+		
+	
+		
 		// LA VARIABLE JUEGO MIENTRAS SEA 0 SE PUEDE JUGAR CUANDO SE DERROTE AL BOSS VA
 		// A CAMBIAR A 1 Y EL WHILE SE VA A CERRAR
 		/*
 		 * ******************************************** seleccion de personaje
 		 * ?conveniente un ARRAY? *******************************************
 		 */
-		// falta variable heroes
-		// array Xin
-		// array rubick
+
 
 		String inicioJuego, introGuerrero, introHechicero, mensajeCombate, decisionCombate;
 		String seleccionPersonaje;
@@ -125,12 +132,10 @@ public class tpProgramacion {
 		JOptionPane.showMessageDialog(null,
 				inicioJuego + "podras elegir a " + introGuerrero + "o al " + introHechicero);
 
-		seleccionPersonaje = JOptionPane.showInputDialog(
-				"Selecciona tu personaje: el hechicero Rubick o el guerrero Xin. (escribe su nombre porfavor) ");
-
+	
 		// puedo clavar un DO/WHILE para que se repita
 		// mejor con switch
-
+/*
 		do {
 			if (seleccionPersonaje.equalsIgnoreCase("Rubick")) {
 				// Array con stats de rubick en el dado
@@ -141,17 +146,47 @@ public class tpProgramacion {
 					seleccionHeroe++;
 				} else {
 					JOptionPane.showMessageDialog(null, "Tenes que elegir entre Xin o Rubick");
-					// bugeado
+					// bugeado 
 				}
 
 			}
 		} while (seleccionHeroe == 0);
 
+		*/
+	// refactor seleccion pj
+		
+		do{
+			seleccionPersonaje = JOptionPane.showInputDialog(
+					"Selecciona tu personaje: el hechicero Rubick o el guerrero Xin.");
+
+			
+			if (seleccionPersonaje.equalsIgnoreCase("rubick")) {
+				seleccionHeroe++;
+				heroeStats[0] = 10;
+				heroeStats[1] = 1;
+				// array con stats
+				System.out.print("rubivc");
+			}else if (seleccionPersonaje.equalsIgnoreCase("xin")) {
+				seleccionHeroe++;
+				heroeStats[0] = 8;
+				heroeStats[1] = 3;
+				// array con stats
+				System.out.print("xin");
+			}else {
+				JOptionPane.showMessageDialog(null, "tenes que seleccionar 1 personaje");
+				
+			}
+			
+			}while(seleccionHeroe == 0);
+		
+		System.out.print("salida del pj");
+
 		// inicio mundo
 		for (variableMundo = 0; variableMundo < mundoArray.length; variableMundo++) {
 			if (variableMundo < 6) {
-				mundoArray[variableMundo] = Math.floor(Math.random() * 2 + 1);
+				mundoArray[variableMundo] = rnd.nextInt(2) + 1;
 				combate = 0;
+				System.out.print(mundoArray[variableMundo]);
 				do {
 					if (mundoArray[variableMundo] == 1) {
 						// entra en combate
@@ -161,9 +196,9 @@ public class tpProgramacion {
 								// tirar dadoHeroe y dadoEnemigo
 								do {
 									JOptionPane.showMessageDialog(null, "Inicia la ronda " + rondaCombate);
-									dadoHeroe = Math.floor(Math.random() * 10 + 2); // modificar para que tomes los
+									dadoHeroe = rnd.nextInt(heroeStats[0]) + heroeStats[1] ; // modificar para que tomes los
 																					// valores del array
-									dadoEnemigo = Math.floor(Math.random() * 8 + 1);
+									dadoEnemigo =rnd.nextInt(7) + 2;
 									if (dadoHeroe > dadoEnemigo) {
 										rondaCombate++;
 										combateGanado++;
@@ -177,25 +212,29 @@ public class tpProgramacion {
 
 								} while (combateGanado == 3);
 
-								combate++;
-
+								if (combateGanado == 3 ) {
+									combate++;
+								}
+								// bugeado>>> revisar como hacer para que salte 1 sola vez y en caso de no poder salte 
+								// al combate
 							} else if (decisionCombate.equalsIgnoreCase("escapar")) {
-								dadoRetirada = Math.floor(Math.random() * 100 + 1);
-								if (dadoRetirada == 500) {
+								dadoRetirada = rnd.nextInt(1000) + 1;
+								if (dadoRetirada >= 500 && dadoRetirada <= 550) {
 									JOptionPane.showMessageDialog(null, "pudiste escaparte con exito");
+									combate++;
 								} else {
 									JOptionPane.showMessageDialog(null, "no pudiste escaparte");
 								}
 							}
 
-						} while (combate == 1);
+						} while (combate == 0);
 
 						
 					} else {
 
 					}
 
-				} while (juego == 1);
+				} while (juego == 0);
 			}
 
 		}
