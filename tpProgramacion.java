@@ -16,7 +16,7 @@ public class tpProgramacion {
 		 */
 
 		/*
-		 * NOTAS   idea original
+		 * NOTAS idea original
 		 * 
 		 * puedo setear un ARRAY de 10 como mapa determinado en cada espacio tiro un
 		 * DadoGeneral, si el numero sale par sucede un evento si el numero sale impar
@@ -73,51 +73,52 @@ public class tpProgramacion {
 		 * 
 		 * 
 		 */
-		/*			IDEA BASICA
+		/*
+		 * IDEA BASICA
 		 * 
-		 * hacer un array de 6 posiciones en donde 5 van a enbcontrarse enemigo o no 
-		 * se va a ingresar en un combate en donde se puede retirar o pelear 
-		 * en caso de pelear va a ver 3 rondas en donde se pasa al siguiente caso si se gana con el dado 2 veces
-		 * en caso de perder  GAME OVER en la casilla 6 va a estar el boss final que para ganar se va a tirar el dado 5 veces
+		 * hacer un array de 6 posiciones en donde 5 van a enbcontrarse enemigo o no se
+		 * va a ingresar en un combate en donde se puede retirar o pelear en caso de
+		 * pelear va a ver 3 rondas en donde se pasa al siguiente caso si se gana con el
+		 * dado 2 veces en caso de perder GAME OVER en la casilla 6 va a estar el boss
+		 * final que para ganar se va a tirar el dado 5 veces
 		 * 
-		 * se va a elegir entre 2 personajes en donde dependendiendo la seleccion se va a modificar los valores del dado
-		 *  (numero minimo, mayor y diferencia entre estos  ej. dado de 10 caras 1-10 es el base pj 1 va a ser +2 >>> 3-13  )
+		 * se va a elegir entre 2 personajes en donde dependendiendo la seleccion se va
+		 * a modificar los valores del dado (numero minimo, mayor y diferencia entre
+		 * estos ej. dado de 10 caras 1-10 es el base pj 1 va a ser +2 >>> 3-13 )
 		 *
 		 * 
 		 * 
 		 */
-		
-		
-		
+		// Ashkavor
+
 		// ESTO ES UN COMENTARIO RANDOM PARA JUGAR CON EL GITHUB DESKTOP
-		
+
 		// variables globales
-		Random rnd = new Random();		
-		int juego = 0; // variable que termina el juego
+		Random rnd = new Random();
+		int finJuego = 0; // variable que termina el juego
 		int mundoArray[] = new int[6]; // mapa del juego
-		int variableMundo; // variable del for
+		int casilleroMundo; // variable del for
 		int seleccionHeroe = 0;
-		int heroeStats[] = new int[2];    // [0] >>> numero maximo de dado  [1] >>>> numero minimo de dado  
-		//combates
+		int heroeStats[] = new int[2]; // [0] >>> numero maximo de dado [1] >>>> numero minimo de dado
+		int finCasillero = 0;
+		// combates
 		int combate = 0; // variable que setea el combate
-		int rondaCombate = 1; // variable que setea las rondas	
-		int contadorCombate = 0;
-		int combateGanado = 0, combatePerdido = 0;
-		//dados
+		int numeroRonda = 1; // setea la ronda de combate
+		int rondaGanada, rondaPerdida = 0, salirCombate = 0;
+
+
+		// dados
 		int dadoGeneral; // tiene 2 entradas par o impar (1 o 2)
 		int dadoHeroe;
 		int dadoEnemigo;
 		int dadoRetirada;
-		
-	
-		
+
 		// LA VARIABLE JUEGO MIENTRAS SEA 0 SE PUEDE JUGAR CUANDO SE DERROTE AL BOSS VA
 		// A CAMBIAR A 1 Y EL WHILE SE VA A CERRAR
 		/*
 		 * ******************************************** seleccion de personaje
 		 * ?conveniente un ARRAY? *******************************************
 		 */
-
 
 		String inicioJuego, introGuerrero, introHechicero, mensajeCombate, decisionCombate;
 		String seleccionPersonaje;
@@ -132,80 +133,169 @@ public class tpProgramacion {
 		JOptionPane.showMessageDialog(null,
 				inicioJuego + "podras elegir a " + introGuerrero + "o al " + introHechicero);
 
-	
 		// puedo clavar un DO/WHILE para que se repita
 		// mejor con switch
-/*
+		/*
+		 * do { if (seleccionPersonaje.equalsIgnoreCase("Rubick")) { // Array con stats
+		 * de rubick en el dado seleccionHeroe++; } else { if
+		 * (seleccionPersonaje.equalsIgnoreCase("Xin")) { // array con stats xin en el
+		 * dado seleccionHeroe++; } else { JOptionPane.showMessageDialog(null,
+		 * "Tenes que elegir entre Xin o Rubick"); // bugeado }
+		 * 
+		 * } } while (seleccionHeroe == 0);
+		 * 
+		 */
+		// refactor seleccion pj
+
 		do {
-			if (seleccionPersonaje.equalsIgnoreCase("Rubick")) {
-				// Array con stats de rubick en el dado
-				seleccionHeroe++;
-			} else {
-				if (seleccionPersonaje.equalsIgnoreCase("Xin")) {
-					// array con stats xin en el dado
-					seleccionHeroe++;
-				} else {
-					JOptionPane.showMessageDialog(null, "Tenes que elegir entre Xin o Rubick");
-					// bugeado 
-				}
+			seleccionPersonaje = JOptionPane
+					.showInputDialog("Selecciona tu personaje: el hechicero Rubick o el guerrero Xin.");
 
-			}
-		} while (seleccionHeroe == 0);
-
-		*/
-	// refactor seleccion pj
-		
-		do{
-			seleccionPersonaje = JOptionPane.showInputDialog(
-					"Selecciona tu personaje: el hechicero Rubick o el guerrero Xin.");
-
-			
 			if (seleccionPersonaje.equalsIgnoreCase("rubick")) {
 				seleccionHeroe++;
 				heroeStats[0] = 10;
 				heroeStats[1] = 1;
 				// array con stats
 				System.out.print("rubivc");
-			}else if (seleccionPersonaje.equalsIgnoreCase("xin")) {
+			} else if (seleccionPersonaje.equalsIgnoreCase("xin")) {
 				seleccionHeroe++;
 				heroeStats[0] = 8;
 				heroeStats[1] = 3;
 				// array con stats
 				System.out.print("xin");
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(null, "tenes que seleccionar 1 personaje");
-				
+
 			}
-			
-			}while(seleccionHeroe == 0);
-		
+
+		} while (seleccionHeroe == 0);
+
 		System.out.print("salida del pj");
 
 		// inicio mundo
-		for (variableMundo = 0; variableMundo < mundoArray.length; variableMundo++) {
-			if (variableMundo < 6) {
-				mundoArray[variableMundo] = rnd.nextInt(2) + 1;
-				combate = 0;
-				System.out.print(mundoArray[variableMundo]);
-				do {
-					if (mundoArray[variableMundo] == 1) {
-						// entra en combate
-						decisionCombate = JOptionPane.showInputDialog(null, mensajeCombate);
-						do {
-							if (decisionCombate.equalsIgnoreCase("pelear")) {
+
+		for (casilleroMundo = 0; casilleroMundo < mundoArray.length; casilleroMundo++) {
+			if (casilleroMundo < 6) {
+
+				while (finJuego == 0) {
+
+					mundoArray[casilleroMundo] = rnd.nextInt(2) + 1;
+
+					combate = 0;
+					// check
+
+					System.out.print(" / " + mundoArray[casilleroMundo] + " / ");
+
+					finCasillero = 0;
+
+					while (finCasillero == 0) {
+
+						if (mundoArray[casilleroMundo] == 1) {
+
+							// entra en combate
+							JOptionPane.showMessageDialog(null, "te encontraste un enemigo");
+
+							decisionCombate = JOptionPane.showInputDialog(null, mensajeCombate);
+
+
+							while (combate == 0) {
+
+								if (decisionCombate.equalsIgnoreCase("pelear")) {
+									
+									salirCombate = 0;
+									numeroRonda = 1;
+									rondaGanada = 0;
+									rondaPerdida = 0;
+									
+									while (salirCombate != 0) {
+
+										JOptionPane.showMessageDialog(null, "inicia la ronda " + numeroRonda);
+
+										dadoHeroe = rnd.nextInt(heroeStats[0]) + heroeStats[1];
+										dadoEnemigo = rnd.nextInt(7) + 2;
+
+										if (dadoHeroe > dadoEnemigo) {
+											// combate ganado
+
+											JOptionPane.showMessageDialog(null, "ganaste la ronda  " + numeroRonda
+													+ " - " + dadoHeroe + " vs " + dadoEnemigo);
+
+											rondaGanada++;
+											numeroRonda++;
+
+										} else {
+											// combate perdido
+											JOptionPane.showMessageDialog(null, "perdiste la ronda " + numeroRonda
+													+ " - " + dadoHeroe + " vs " + dadoEnemigo);
+
+											rondaPerdida++;
+
+										}
+
+										numeroRonda++;
+										
+										if (rondaGanada == 3) {
+											salirCombate++;
+										}else if(rondaPerdida == 3) {
+											salirCombate++;
+											finJuego++;
+										}
+										
+										
+									}
+
+								} else {
+									// escapar
+									dadoRetirada = rnd.nextInt(1000) + 1;
+									if (dadoRetirada >= 500 && dadoRetirada <= 550) {
+										JOptionPane.showMessageDialog(null, "pudiste escaparte con exito");
+										combate++;
+									} else {
+										JOptionPane.showMessageDialog(null, "no pudiste escaparte");
+									}
+
+								}
+
+								finCasillero++;
+
+							} // fin combate
+
+						} else {
+							JOptionPane.showMessageDialog(null, "no encontraste un enemigo");
+							finCasillero++;
+						}
+
+					}
+					
+					if (rondaPerdida == 3) {
+						finJuego++;
+						
+					}
+				}
+
+			}
+
+		}
+	}
+}
+		/*
+								
 								// tirar dadoHeroe y dadoEnemigo
 								do {
 									JOptionPane.showMessageDialog(null, "Inicia la ronda " + rondaCombate);
-									dadoHeroe = rnd.nextInt(heroeStats[0]) + heroeStats[1] ; // modificar para que tomes los
-																					// valores del array
+									
+									dadoHeroe = rnd.nextInt(heroeStats[0]) + heroeStats[1] ; 
 									dadoEnemigo =rnd.nextInt(7) + 2;
+									
 									if (dadoHeroe > dadoEnemigo) {
 										rondaCombate++;
 										combateGanado++;
+										
 										JOptionPane.showMessageDialog(null,
 												"Ganaste la ronda "  + rondaCombate + " - " + dadoHeroe + " vs " + dadoEnemigo);
 									} else {
 										combatePerdido++;
+										
 										JOptionPane.showMessageDialog(null,
 												"Perdiste la ronda " + rondaCombate + " - " + dadoHeroe + " vs " + dadoEnemigo);
 									}
@@ -227,18 +317,18 @@ public class tpProgramacion {
 								}
 							}
 
-						} while (combate == 0);
+						}
 
 						
 					} else {
 
 					}
 
-				} while (juego == 0);
+				} 
 			}
 
 		}
-
+*/
 		/*
 		 * do { // ejemplo de combate
 		 * 
@@ -275,6 +365,7 @@ public class tpProgramacion {
 		 */
 
 		
-	}
+	
 
-}
+
+				
